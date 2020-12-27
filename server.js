@@ -16,6 +16,7 @@ const url = require('url');
 const mongourl = 'mongodb+srv://kevinying:199898@cluster0.t3hbl.mongodb.net/test?retryWrites=true&w=majority';
 const dbName = 'test';
 var username = '';
+var alreadyusername;
 
 app.set('view engine','ejs');
 const SECRETKEY = 'I want to pass COMPS381F';
@@ -241,23 +242,34 @@ const handle_Rate = (req, res, criteria) => {
           console.log(DOCID);
           //var searchstr = 'ObjectId('+ req.fields._id + ')';
           
-        
-          var updateDoc = {};
+          
+         // var updateDoc = {};
          // updateDoc['score'] = req.fields.score; 
           
-          
-          var updateStr = {$pull:{score:req.fields.score}};
-
-
+          console.log(req.fields.score);
+          var updateStr = {$push:{score:req.fields.score}};
+         // var updateStr =  { $push: { score: 22 } };
+         if(req.session.username!=alreadyusername){
+            
+            alreadyusername=req.session.username;
+         if(req.fields.score>10 || req.fields.score<0){
+            res.status(200).render('info', {message: `Rate cannot be greater than 10 or smaller than 0`});
+         }else {
+         
+           
 //{"_id" :DOCID['_id']}  {$set: { "score" : req.fields.score }}
 // db.collection('newrestaurant1').deleteOne({"_id" :DOCID['_id']},(err) => {
-         db.collection('newrestaurant1').update({"_id" :DOCID['_id']},updateStr,(err) => {
+         db.collection('newrestaurant1').updateOne({"_id" :DOCID['_id']},updateStr,(err) => {
          console.log("updated!!!!");    
           client.close();
           assert.equal(err,null);
           res.status(200).render('info', {message: `Rated, thank you`});
       });
+    }
+         }else {
+            res.status(200).render('info', {message: `You can only rate one time`});
 
+         }
       });
   }
 

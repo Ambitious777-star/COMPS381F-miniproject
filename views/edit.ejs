@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <form action="/update" method="POST" enctype="multipart/form-data">
+            Restaurant ID: <input name="restaurant_id" value=<%= newrestaurant1.restaurant_id %>><br>
+            Name: <input name="name" value=<%= newrestaurant1.name %>><br>
+            Borough: <input name="borough" value=<%= newrestaurant1.borough %>><br>
+            Cuisine: <input name="cuisine" value=<%= newrestaurant1.cuisine %>><br>
+           <p>Address</p>
+           <dd> 
+             street <input name="street" value=<%= newrestaurant1.street %>><br>
+             building: <input name="building" value=<%= newrestaurant1.building %>><br>
+             zipcode: <input name="zipcode" value=<%= newrestaurant1.zipcode %>><br>
+             coord1: <input name="coord1" value=<%= newrestaurant1.coord1 %>><br>
+             coord2: <input name="coord2" value=<%= newrestaurant1.coord2 %>><br>
+           </dd> 
+           <p>Grades</p>
+           <dd>
+            user: <input name="user" value=<%= newrestaurant1.user %>><br>
+            score: <input name="score" value=<%= newrestaurant1.score %>><br>
+            Owner: <input name="owner" value=<%= newrestaurant1.owner %>><br>
+           </dd>
+            <input type="file" name="filetoupload"><br>
+            <input type="hidden" name="_id" value=<%= newrestaurant1._id %>>
+            <input type="submit" value="update">  
+        </form>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <form action="/create" method="POST" enctype="multipart/form-data">
+            Restaurant ID: <input name="restaurant_id" ><br>
+            Name: <input name="name" ><br>
+            Borough: <input name="borough" ><br>
+            Cuisine: <input name="cuisine" ><br>
+           <p>Address</p>
+           <dd> 
+             street <input name="street" ><br>
+             building: <input name="building" ><br>
+             zipcode: <input name="zipcode" ><br>
+             coord1: <input name="coord1" ><br>
+             coord2: <input name="coord2" ><br>
+           </dd> 
+           <p>Grades</p>
+           <dd>
+            user: <input name="user" ><br>
+            score: <input name="score" ><br>
+           </dd>
+            Owner: <input name="owner" ><br>
+
+            <input type="file" name="filetoupload"><br>
+            <input type="hidden" name="_id" >
+            <input type="submit" value="create">  
+        </form>
+    </body>
+</html>

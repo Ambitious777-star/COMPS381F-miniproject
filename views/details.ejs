@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <H2>Restaurant Details</H2><hr>
+        <p>Restaurant ID: <%= newrestaurant1.restaurant_id %></p>
+        <p>Name: <%= newrestaurant1.name %></p>
+        <p>Borough: <%= newrestaurant1.borough %></p>
+        <p>Cuisine: <%= newrestaurant1.cuisine %></p>
+        <p>Address:</p>
+        <dd>
+        <p>street: <%= newrestaurant1.street %></p>
+        <p>buliding: <%=  newrestaurant1.building %></p>
+        <p>zipcode: <%=  newrestaurant1.zipcode %></p>
+        <p>coord1: <%=  newrestaurant1.coord1 %></p>
+        <p>coord2: <%=  newrestaurant1.coord2 %></p>
+        </dd>
+        <p>Grades:</p>
+        <dd>
+        <p>user: <%= newrestaurant1.user  %></p>
+        <p>score: <%= newrestaurant1.score[0] %></p>
+        <% if (newrestaurant1.score[1]) { %>
+            <p> <%= newrestaurant1.score[1] %></p> <br>
+        <% } %>
+        </dd>
+        <p>Owner: <%= newrestaurant1.owner %></p>
+
+        <% if (newrestaurant1.photo) { %>
+            <img src="data:image/jpg;base64, <%= newrestaurant1.photo %>"><br>
+        <% } %>
+       
+        <% if (newrestaurant1.coord1) { %>
+            <a href="/leaflet?coord1=<%= newrestaurant1.coord1 %>&coord2=<%= newrestaurant1.coord2 %>">leaflet</a><br><br>
+        <% } %>
+
+        <a href="/edit?_id=<%= newrestaurant1._id %>">edit</a><br>
+        <a href="/ratepage?_id=<%= newrestaurant1._id %>">rate</a><br>
+        <a href="/delete?_id=<%= newrestaurant1._id %>">delete</a><br>
+        <a href="/">home</a>
+    </body>
+</html>

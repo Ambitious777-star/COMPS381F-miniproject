@@ -17,9 +17,14 @@
         <dd>
         <p>user: <%= newrestaurant1.user  %></p>
         <p>score: <%= newrestaurant1.score[0] %></p>
+        <dd>
         <% if (newrestaurant1.score[1]) { %>
             <p> <%= newrestaurant1.score[1] %></p> <br>
         <% } %>
+        <% if (newrestaurant1.score[2]) { %>
+            <p> <%= newrestaurant1.score[2] %></p> <br>
+        <% } %>
+        </dd>
         </dd>
         <p>Owner: <%= newrestaurant1.owner %></p>
 

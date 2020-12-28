@@ -1,0 +1,22 @@
+<html>
+<body>                      
+  
+	<form action="/search" method="POST" enctype="multipart/form-data">
+		
+	
+	<p>Please select one of the following textfield to search </p>
+	<input type="hidden" name="selected" >
+
+	borough <input name="borough" ><br>
+	name <input name="name" ><br>
+	cuisine or borough <input name="cob" ><br>
+
+      <input type="submit" value="Search";>
+	</form><script> 
+var select= document.getElementById("searchQ");
+ var selectedValue = select.options[select.selectedIndex].value;
+document.getElementsByName("selected").value=selectedValue;
+console.log(selected.value,3333);
+</script>
+</body></html>
+

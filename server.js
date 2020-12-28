@@ -235,10 +235,10 @@ const handle_Rate = (req, res, criteria) => {
           assert.equal(null, err);
           console.log("Connected successfully to server");
           const db = client.db(dbName);
-  
+          
           let DOCID = {};
-          //DOCID['_id'] = ObjectID(criteria._id); 
-          DOCID['_id'] = req.fields._id; 
+           
+          DOCID['_id'] = ObjectID(req.fields._id); 
           console.log(DOCID);
           //var searchstr = 'ObjectId('+ req.fields._id + ')';
           
@@ -390,6 +390,88 @@ const handle_Create = (req, res) => {
         }
    }
    
+const findRestaurants = (db, criteria, callback) => {
+	restaurants = [];
+	if (criteria != null) {
+   		var cursor = db.collection('newrestaurant1').find(criteria);
+	}
+	else {
+		var cursor = db.collection('newrestaurant1').find();
+	}
+	cursor.toArray((err,docs) => {
+		assert.equal(err,null);
+		callback(docs);
+	})
+};
+/*
+const findDistinctBorough = (db, callback) => {
+	db.collection('newrestaurant1').distinct("borough", (err,docs) => {
+		console.log(docs);
+		callback(docs);
+	});
+}
+*/
+
+const handle_Search = (res, req) => {
+    const client = new MongoClient(mongourl);
+    if(req.session.authenticated){
+    client.connect((err) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+        const db = client.db(dbName);
+       if(req.fields.borough!=""){
+           console.log(req.fields.searchQ,8888,req.fields.selected);
+        var searchc = req.fields.borough;
+        var criteria={};
+        criteria['borough']=searchc;
+        findRestaurants(db, criteria, (docs) => {
+            console.log('findddddddd1');
+            client.close();
+            console.log("Closed DB connection");
+           // res.status(200).render('list',{nNewrestaurant1: docs.length, newrestaurant1: docs});
+           res.status(200).json(docs);
+
+
+        });
+    }
+    else if(req.fields.name!=""){
+        var searchc = req.fields.name;
+        var criteria={};
+        criteria['name']=searchc;
+        findRestaurants(db, criteria, (docs) => {
+            console.log('findddddddd2');
+            client.close();
+            console.log("Closed DB connection");
+           // res.status(200).render('list',{nNewrestaurant1: docs.length, newrestaurant1: docs});
+           res.status(200).json(docs);
+
+
+        });
+    }
+    else if (req.fields.cob!=""){
+        var searchc = req.fields.cob;
+        var criteria={};
+        
+        criteria['cuisine']=searchc;
+        
+        findRestaurants(db, criteria, (docs) => {
+            console.log('findddddddd3');
+            client.close();
+            console.log("Closed DB connection");
+           
+           // res.status(200).render('list',{nNewrestaurant1: docs.length, newrestaurant1: docs});
+           res.status(200).json(docs);
+
+
+        });
+    }
+        
+    });
+     }else{
+        res.redirect('/login');
+     }
+
+}
 
 
 /*
@@ -435,7 +517,13 @@ app.post('/create', (req,res) => {
     handle_Create(req, res);
     //res.status(200).render('create');
 })
+app.get('/searchpage', (req, res) => {
+    res.status(200).render('searchpage');
+})
 
+app.post('/search', (req, res) => {
+    handle_Search (res, req);  
+})
 /*
 app.get('/*', (req,res) => {
     //res.status(404).send(`${req.path} - Unknown request!`);
